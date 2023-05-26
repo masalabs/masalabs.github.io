@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>10. 雪花id - MASA Blogs</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#512bd4"><meta name="application-name" content="MASA Blogs"><meta name="msapplication-TileImage" content="/images/avatar.png"><meta name="msapplication-TileColor" content="#512bd4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MASA Blogs"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="前言雪花算法是Twitter开源的分布式ID生成算法，雪花算法生成后是一个64bit大小的整数（long型），它的优势：  高性能: 每秒可生成数百万的id 生成的id是唯一的，不会重复 id是有顺序的"><meta property="og:type" content="blog"><meta property="og:title" content="10. 雪花id"><meta property="og:url" content="https://blogs.masastack.com/2022/06/17/masa/framework/practice/10.%20%E9%9B%AA%E8%8A%B1id/"><meta property="og:site_name" content="MASA Blogs"><meta property="og:description" content="前言雪花算法是Twitter开源的分布式ID生成算法，雪花算法生成后是一个64bit大小的整数（long型），它的优势：  高性能: 每秒可生成数百万的id 生成的id是唯一的，不会重复 id是有顺序的"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://s2.loli.net/2022/06/28/bRM4nq7h8gS5Adv.png"><meta property="article:published_time" content="2022-06-17T17:00:00.000Z"><meta property="article:modified_time" content="2023-05-26T06:39:56.433Z"><meta property="article:author" content="MASA"><meta property="article:tag" content="MASA Framework"><meta property="article:tag" content="SnowFlake"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://s2.loli.net/2022/06/28/bRM4nq7h8gS5Adv.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blogs.masastack.com/2022/06/17/masa/framework/practice/10.%20%E9%9B%AA%E8%8A%B1id/"},"headline":"10. 雪花id","image":["https://s2.loli.net/2022/06/28/bRM4nq7h8gS5Adv.png"],"datePublished":"2022-06-17T17:00:00.000Z","dateModified":"2023-05-26T06:39:56.433Z","author":{"@type":"Person","name":"MASA"},"publisher":{"@type":"Organization","name":"MASA Blogs","logo":{"@type":"ImageObject","url":{"text":"MASA Blogs"}}},"description":"前言雪花算法是Twitter开源的分布式ID生成算法，雪花算法生成后是一个64bit大小的整数（long型），它的优势：  高性能: 每秒可生成数百万的id 生成的id是唯一的，不会重复 id是有顺序的"}</script><link rel="canonical" href="https://blogs.masastack.com/2022/06/17/masa/framework/practice/10.%20%E9%9B%AA%E8%8A%B1id/"><link rel="icon" href="/images/avatar.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">MASA Blogs</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/masastack"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://s2.loli.net/2022/06/28/bRM4nq7h8gS5Adv.png" alt="10. 雪花id"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-06-17T17:00:00.000Z" title="6/17/2022, 5:00:00 PM">2022-06-17</time>发表</span><span class="level-item"><time dateTime="2023-05-26T06:39:56.433Z" title="5/26/2023, 6:39:56 AM">2023-05-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/NET/">.NET</a><span> / </span><a class="link-muted" href="/categories/NET/MASA-Framework/">MASA Framework</a></span><span class="level-item">13 分钟读完 (大约1907个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">10. 雪花id</h1><div class="content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>雪花算法是Twitter开源的分布式ID生成算法，雪花算法生成后是一个64bit大小的整数（long型），它的优势：</p>
+<ul>
+<li>高性能: 每秒可生成数百万的id</li>
+<li>生成的id是唯一的，不会重复</li>
+<li>id是有顺序的</li>
+</ul>
+<span id="more"></span>
+
+
+
+<h2 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h2><ul>
+<li>安装<a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/zh-cn/download/dotnet/6.0">.Net 6.0</a></li>
+</ul>
+<h3 id="单机版雪花id"><a href="#单机版雪花id" class="headerlink" title="单机版雪花id"></a>单机版雪花id</h3><ol>
+<li><p>新建ASP.NET Core 空项目<code>Assignment.SnowflakeId</code>，并安装<code>Masa.Contrib.Data.IdGenerator.Snowflake</code>（单机版的雪花id）</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dotnet new web <span class="literal">-o</span> Assignment.SnowflakeId</span><br><span class="line"><span class="built_in">cd</span> Assignment.SnowflakeId</span><br><span class="line">dotnet add package Masa.Contrib.Data.IdGenerator.Snowflake <span class="literal">--version</span> <span class="number">0.5</span>.<span class="number">0</span><span class="literal">-preview</span>.<span class="number">5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改类<code>Program</code>，注册单机版雪花id</p>
+ <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">builder.Services.AddSnowflake(options =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// options.TimestampType = TimestampType.Seconds;//时间戳使用秒</span></span><br><span class="line">    <span class="comment">// options.EnableMachineClock = true;//启用时钟锁</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如何生成雪花id？修改类<code>Program</code></p>
+ <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过di获取ISnowflakeGenerator创建id</span></span><br><span class="line">app.MapGet(<span class="string">&quot;/id/generator/ioc&quot;</span>, (ISnowflakeGenerator snowflakeGenerator)</span><br><span class="line">    =&gt; snowflakeGenerator.Create());</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过静态字段获取ISnowflakeGenerator生成雪花id</span></span><br><span class="line">app.MapGet(<span class="string">&quot;/id/generator&quot;</span>, ()</span><br><span class="line">    =&gt; IdGeneratorFactory.SnowflakeGenerator.Create());</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="分布式版本雪花id"><a href="#分布式版本雪花id" class="headerlink" title="分布式版本雪花id"></a>分布式版本雪花id</h3><ol>
+<li><p>新建ASP.NET Core 空项目<code>Assignment.DistributedSnowflakeId</code>，并安装<code>Masa.Contrib.Data.IdGenerator.Snowflake.Distributed.Redis</code>（分布式雪花id）</p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dotnet new web <span class="literal">-o</span> Assignment.DistributedSnowflakeId</span><br><span class="line"><span class="built_in">cd</span> Assignment.DistributedSnowflakeId</span><br><span class="line">dotnet add package Masa.Contrib.Data.IdGenerator.Snowflake.Distributed.Redis <span class="literal">--version</span> <span class="number">0.5</span>.<span class="number">0</span><span class="literal">-preview</span>.<span class="number">5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改类<code>Program</code></p>
+ <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Redis，如果有使用MasaRedis，可省略</span></span><br><span class="line">builder.Services.AddMasaRedisCache(option =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    option.Servers = <span class="keyword">new</span> List&lt;RedisServerOptions&gt;()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">new</span>(<span class="string">&quot;localhost&quot;</span>, <span class="number">6379</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    option.DefaultDatabase = <span class="number">2</span>;</span><br><span class="line">    option.Password = <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;);</span><br><span class="line">builder.Services.AddSnowflake(option =&gt; &#123;</span><br><span class="line">    <span class="comment">//通过Redis实现分布式雪花id</span></span><br><span class="line">    option.UseRedis();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改类<code>Program</code>，新增生成雪花id的服务</p>
+ <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.MapGet(<span class="string">&quot;/id/generator/ioc&quot;</span>, (ISnowflakeGenerator snowflakeGenerator)</span><br><span class="line">    =&gt; snowflakeGenerator.NewId()); <span class="comment">//生成id</span></span><br><span class="line"></span><br><span class="line">app.MapGet(<span class="string">&quot;/id/generator&quot;</span>, ()</span><br><span class="line">    =&gt; IdGeneratorFactory.SnowflakeGenerator.NewId()); <span class="comment">//生成id</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>生成雪花id不区分单机版雪花id、分布式雪花id</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>雪花id的结构图如下：</p>
+<p><img src="https://s2.loli.net/2022/06/24/ux5MGq4gfybrmCe.jpg" alt="雪花id结构图"></p>
+<ul>
+<li>固定位: <ul>
+<li>1位, 不需要更改。二进制中最高位为1的都是负数，但是我们生成的id一般都使用整数，所以这个最高位固定是0</li>
+</ul>
+</li>
+<li>时间戳：<ul>
+<li>41位: 毫秒，可使用0 至 ((2 ^ 41) - 1)的值（默认值）</li>
+<li>32位: 秒（并发量低可以使用），可使用0 至 ((2 ^ 32) - 1)的值</li>
+</ul>
+</li>
+<li>工作机器id: <ul>
+<li>10位：默认值，可使用0 至 ((2 ^ 10) - 1)的值，支持1024个机器id</li>
+</ul>
+</li>
+<li>序列号: <ul>
+<li>12位：默认值，可使用0 至 ((2 ^ 12) - 1)的值，同一时间节点下同一个工作机器最多生成4096个id</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>雪花id最多为64位，固定位数不变，确保: 时间戳位数 + 工作机器id位数 + 序列号位数 &lt;&#x3D; 63 即可</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Contrib/tree/main/src/Data/IdGenerator/Masa.Contrib.Data.IdGenerator.Snowflake"><code>Masa.Contrib.Data.IdGenerator.Snowflake</code></a> 默认实现的雪花id属于单机版的雪花id，默认工作机器为10位，序列号为12位，时间戳为41位，其中工作机器id默认获取的是环境<code>WORKER_ID</code>变量的值，如果未配置环境<code>WORKER_ID</code>变量的值，则WorkerId的值为0。</p>
+<p>有哪些缺点及如何解决？</p>
+<ul>
+<li>不支持k8s（k8s多Pod共享同一个环境环境，会导致获取到同一个WorkerId，高并发场景下，可能生成重复id）<ul>
+<li>可以使用<a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Contrib/blob/main/src/Data/IdGenerator/Masa.Contrib.Data.IdGenerator.Snowflake.Distributed.Redis"><code>Masa.Contrib.Data.IdGenerator.Snowflake.Distributed.Redis</code></a>, 其借助<code>Redis</code>做到了WorkerId的分配，可以确保WorkerId不会重复</li>
+<li>自定义实现<code>IWorkerProvider</code>，并在<code>AddSnowflake</code>之前提前将新的WorkerProvider注册到服务集合中（其生命周期为单例）</li>
+</ul>
+</li>
+<li>时钟回拨（时钟回拨会导致重复id出现）<ul>
+<li>使用可靠的NTP服务器，确保时钟的稳定性</li>
+<li>关闭NTP同步</li>
+<li>启用时钟锁 (<code>options.EnableMachineClock = true</code>，代码修改，以首次运行获取到的当前时间作为基准，后续不再获取当前时间)</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何定义符合自己业务的雪花id"><a href="#如何定义符合自己业务的雪花id" class="headerlink" title="如何定义符合自己业务的雪花id"></a>如何定义符合自己业务的雪花id</h2><p>雪花id是一个64bit的整数，其具有很强的灵活性，默认雪花id由固定位 + 时间戳 + 机器id + 序列号生成，但这不是固定的，我们可以更改的除固定位以及时间戳意外的其他组成，而时间戳可以用毫秒也可以用秒，因此机器id + 序列号的位数在22到31位。</p>
+<ul>
+<li>机器id的意义在于多副本部署时，副本之间在同一时间点时不会生成相同的id</li>
+<li>序列号的意义在于同一个机器、同一个时间点下最多生成的id数，其值是递增的，如果你的业并发很高，在同一机器、时间点的请求超过4096时，则需要将序列号的位数增大，如果并发不高，则可以将序列号的位数降低。</li>
+</ul>
+<p>明确自己的业务情况，确定id的组成部分，这样一来我们接下来就可以针对性的做适合我们的雪花id</p>
+<ol>
+<li><p>新建类库<code>IdGenerator.Snowflake</code>，并安装<code>Masa.BuildingBlocks.Data</code></p>
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dotnet new web <span class="literal">-o</span> IdGenerator.Snowflake</span><br><span class="line"><span class="built_in">cd</span> IdGenerator.Snowflake</span><br><span class="line">dotnet add package Masa.BuildingBlocks.Data <span class="literal">--version</span> <span class="number">0.5</span>.<span class="number">0</span><span class="literal">-preview</span>.<span class="number">5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建类<code>SnowflakeIdGenerator</code>, 并实现ISnowflakeGenerator</p>
+ <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SnowflakeIdGenerator</span> : <span class="title">ISnowflakeGenerator</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">long</span> <span class="title">Create</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//todo: 生成雪花id，具体可参考 https://github.com/masastack/MASA.Contrib/blob/main/src/Data/IdGenerator/Masa.Contrib.Data.IdGenerator.Snowflake/Internal/SnowflakeIdGenerator.cs</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NotImplementedException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建类<code>ServiceCollectionExtensions</code>, 新增<code>AddSnowflake</code>方法扩展服务集合</p>
+ <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IServiceCollection <span class="title">AddSnowflake</span>(<span class="params"><span class="keyword">this</span> IServiceCollection services</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    services.TryAddSingleton&lt;ISnowflakeGenerator, SnowflakeIdGenerator&gt;();</span><br><span class="line">    services.TryAddSingleton&lt;IIdGenerator&lt;System.Snowflake, <span class="built_in">long</span>&gt;&gt;(serviceProvider</span><br><span class="line">        =&gt; serviceProvider.GetRequiredService&lt;ISnowflakeGenerator&gt;());</span><br><span class="line">    IdGeneratorFactory.SetSnowflakeGenerator(services.BuildServiceProvider().GetRequiredService&lt;ISnowflakeGenerator&gt;());<span class="comment">//方便通过 IdGeneratorFactory.SnowflakeGenerator.Create() 获取id</span></span><br><span class="line">    <span class="keyword">return</span> services;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><p>通过运行<a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Contrib/tree/main/test/Masa.Contrib.Data.IdGenerator.Snowflake.BenchmarkDotnet.Tests"><code>Benchmark</code></a>查看生成id的性能</p>
+<ol>
+<li>TimestampType为1（毫秒）</li>
+</ol>
+<p><code>BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1023 (21H1/May2021Update) 11th Gen Intel Core i7-11700 2.50GHz, 1 CPU, 16 logical and 8 physical cores .NET SDK=7.0.100-preview.4.22252.9 [Host]     : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT DEBUG Job-JPQDWN : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-BKJUSV : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-UGZQME : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT</code></p>
+<p><code>Runtime=.NET 6.0  RunStrategy=ColdStart</code></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Job</th>
+<th>IterationCount</th>
+<th align="right">Mean</th>
+<th align="right">Error</th>
+<th align="right">StdDev</th>
+<th align="right">Median</th>
+<th align="right">Min</th>
+<th align="right">Max</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SnowflakeByMillisecond</td>
+<td>Job-JPQDWN</td>
+<td>1000</td>
+<td align="right">2,096.1 ns</td>
+<td align="right">519.98 ns</td>
+<td align="right">4,982.3 ns</td>
+<td align="right">1,900.0 ns</td>
+<td align="right">1,000.0 ns</td>
+<td align="right">156,600.0 ns</td>
+</tr>
+<tr>
+<td>SnowflakeByMillisecond</td>
+<td>Job-BKJUSV</td>
+<td>10000</td>
+<td align="right">934.0 ns</td>
+<td align="right">58.44 ns</td>
+<td align="right">1,775.5 ns</td>
+<td align="right">500.0 ns</td>
+<td align="right">200.0 ns</td>
+<td align="right">161,900.0 ns</td>
+</tr>
+<tr>
+<td>SnowflakeByMillisecond</td>
+<td>Job-UGZQME</td>
+<td>100000</td>
+<td align="right">474.6 ns</td>
+<td align="right">5.54 ns</td>
+<td align="right">532.8 ns</td>
+<td align="right">400.0 ns</td>
+<td align="right">200.0 ns</td>
+<td align="right">140,500.0 ns</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>TimestampType为2（秒）</li>
+</ol>
+<p><code>BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1023 (21H1/May2021Update) 11th Gen Intel Core i7-11700 2.50GHz, 1 CPU, 16 logical and 8 physical cores .NET SDK=7.0.100-preview.4.22252.9 [Host]     : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-RVUKKG : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-JAUDMW : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-LOMSTK : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT</code></p>
+<p><code>Runtime=.NET 6.0  RunStrategy=ColdStart</code></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Job</th>
+<th>IterationCount</th>
+<th align="right">Mean</th>
+<th align="right">Error</th>
+<th align="right">StdDev</th>
+<th align="right">Median</th>
+<th align="right">Min</th>
+<th align="right">Max</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SnowflakeBySecond</td>
+<td>Job-RVUKKG</td>
+<td>1000</td>
+<td align="right">1.882 us</td>
+<td align="right">0.5182 us</td>
+<td align="right">4.965 us</td>
+<td align="right">1.5000 us</td>
+<td align="right">0.9000 us</td>
+<td align="right">158.0 us</td>
+</tr>
+<tr>
+<td>SnowflakeBySecond</td>
+<td>Job-JAUDMW</td>
+<td>10000</td>
+<td align="right">11.505 us</td>
+<td align="right">35.1131 us</td>
+<td align="right">1,066.781 us</td>
+<td align="right">0.4000 us</td>
+<td align="right">0.3000 us</td>
+<td align="right">106,678.8 us</td>
+</tr>
+<tr>
+<td>SnowflakeBySecond</td>
+<td>Job-LOMSTK</td>
+<td>100000</td>
+<td align="right">22.097 us</td>
+<td align="right">15.0311 us</td>
+<td align="right">1,444.484 us</td>
+<td align="right">0.4000 us</td>
+<td align="right">0.2000 us</td>
+<td align="right">118,139.7 us</td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li>TimestampType为1（毫秒）、启用时钟锁</li>
+</ol>
+<p><code>BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1023 (21H1/May2021Update) 11th Gen Intel Core i7-11700 2.50GHz, 1 CPU, 16 logical and 8 physical cores .NET SDK=7.0.100-preview.4.22252.9 [Host]     : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-BBZSDR : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-NUSWYF : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT Job-FYICRN : .NET 6.0.5 (6.0.522.21309), X64 RyuJIT</code></p>
+<p><code>Runtime=.NET 6.0  RunStrategy=ColdStart</code></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Job</th>
+<th>IterationCount</th>
+<th align="right">Mean</th>
+<th align="right">Error</th>
+<th align="right">StdDev</th>
+<th align="right">Median</th>
+<th align="right">Min</th>
+<th align="right">Max</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MachineClockByMillisecond</td>
+<td>Job-BBZSDR</td>
+<td>1000</td>
+<td align="right">1,502.0 ns</td>
+<td align="right">498.35 ns</td>
+<td align="right">4,775.1 ns</td>
+<td align="right">1,100.0 ns</td>
+<td align="right">700.0000 ns</td>
+<td align="right">151,600.0 ns</td>
+</tr>
+<tr>
+<td>MachineClockByMillisecond</td>
+<td>Job-NUSWYF</td>
+<td>10000</td>
+<td align="right">602.0 ns</td>
+<td align="right">54.76 ns</td>
+<td align="right">1,663.7 ns</td>
+<td align="right">200.0 ns</td>
+<td align="right">100.0000 ns</td>
+<td align="right">145,400.0 ns</td>
+</tr>
+<tr>
+<td>MachineClockByMillisecond</td>
+<td>Job-FYICRN</td>
+<td>100000</td>
+<td align="right">269.8 ns</td>
+<td align="right">5.64 ns</td>
+<td align="right">542.4 ns</td>
+<td align="right">200.0 ns</td>
+<td align="right">0.0000 ns</td>
+<td align="right">140,900.0 ns</td>
+</tr>
+</tbody></table>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>单机版的雪花id与分布式雪花id的区别在于WorkerId，多副本服务获取到的WorkerId不是唯一的，而分布式雪花id的WorkerId是唯一的，目前Masa提供的分布式雪花id是基于<code>Redis</code>实现的，如果有其他的实现可参考<a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Contrib/tree/main/src/Data/IdGenerator/Masa.Contrib.Data.IdGenerator.Snowflake.Distributed.Redis"><code>IdGenerator.Snowflake.Distributed.Redis</code></a>实现，如果需要支持数据中心或者服务可参考<a href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E7%AC%A6%E5%90%88%E8%87%AA%E5%B7%B1%E4%B8%9A%E5%8A%A1%E7%9A%84%E9%9B%AA%E8%8A%B1id">如何自定义雪花id</a></p>
+<h2 id="本章源码"><a href="#本章源码" class="headerlink" title="本章源码"></a>本章源码</h2><p>Assignment10</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/zhenlei520/MasaFramework.Practice">https://github.com/zhenlei520/MasaFramework.Practice</a></p>
+<h2 id="开源地址"><a href="#开源地址" class="headerlink" title="开源地址"></a>开源地址</h2><p>MASA.BuildingBlocks：<a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.BuildingBlocks">https://github.com/masastack/MASA.BuildingBlocks</a></p>
+<p>MASA.Contrib：<a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Contrib">https://github.com/masastack/MASA.Contrib</a></p>
+<p>MASA.Utils：<a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Utils">https://github.com/masastack/MASA.Utils</a></p>
+<p>MASA.EShop：<a target="_blank" rel="noopener" href="https://github.com/masalabs/MASA.EShop">https://github.com/masalabs/MASA.EShop</a></p>
+<p>MASA.Blazor：<a target="_blank" rel="noopener" href="https://github.com/BlazorComponent/MASA.Blazor">https://github.com/BlazorComponent/MASA.Blazor</a></p>
+<p>如果你对我们的 MASA Framework 感兴趣，无论是代码贡献、使用、提 Issue，欢迎联系我们</p>
+<p><img src="https://i.loli.net/2021/11/19/NPsOdZuGfBep3DY.png" alt="16373211753064.png"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>10. 雪花id</p><p><a href="https://blogs.masastack.com/2022/06/17/masa/framework/practice/10. 雪花id/">https://blogs.masastack.com/2022/06/17/masa/framework/practice/10. 雪花id/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>MASA</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-06-17</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-05-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/MASA-Framework/">MASA Framework</a><a class="link-muted mr-2" rel="tag" href="/tags/SnowFlake/">SnowFlake</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/07/12/masa/framework/practice/14.%20%E6%9C%80%E5%B0%8F%20API%20-%20MinimalAPIs/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">14. 最小API - MinimalAPIs</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/06/14/masa/framework/practice/9.%20%E9%94%81%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"><span class="level-item">9. 锁与分布式锁</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/avatar.png" alt="MASA"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">MASA</p><p class="is-size-6 is-block">Make change easier.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>杭州</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">80</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">22</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">38</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/masastack" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/masastack"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#前言"><span class="level-left"><span class="level-item">1</span><span class="level-item">前言</span></span></a></li><li><a class="level is-mobile" href="#快速入门"><span class="level-left"><span class="level-item">2</span><span class="level-item">快速入门</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#单机版雪花id"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">单机版雪花id</span></span></a></li><li><a class="level is-mobile" href="#分布式版本雪花id"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">分布式版本雪花id</span></span></a></li></ul></li><li><a class="level is-mobile" href="#进阶"><span class="level-left"><span class="level-item">3</span><span class="level-item">进阶</span></span></a></li><li><a class="level is-mobile" href="#如何定义符合自己业务的雪花id"><span class="level-left"><span class="level-item">4</span><span class="level-item">如何定义符合自己业务的雪花id</span></span></a></li><li><a class="level is-mobile" href="#性能测试"><span class="level-left"><span class="level-item">5</span><span class="level-item">性能测试</span></span></a></li><li><a class="level is-mobile" href="#总结"><span class="level-left"><span class="level-item">6</span><span class="level-item">总结</span></span></a></li><li><a class="level is-mobile" href="#本章源码"><span class="level-left"><span class="level-item">7</span><span class="level-item">本章源码</span></span></a></li><li><a class="level is-mobile" href="#开源地址"><span class="level-left"><span class="level-item">8</span><span class="level-item">开源地址</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://github.com/masalabs/MASA.EShop" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MASA.EShop</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://github.com/BlazorComponent/MASA.Blazor" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MASA.Blazor</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://www.cnblogs.com/doddgu/tag/Dapr" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">doddgu&#039;blog</span></span><span class="level-right"><span class="level-item tag">www.cnblogs.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/NET/"><span class="level-start"><span class="level-item">.NET</span></span><span class="level-end"><span class="level-item tag">45</span></span></a><ul><li><a class="level is-mobile" href="/categories/NET/Blazor/"><span class="level-start"><span class="level-item">Blazor</span></span><span class="level-end"><span class="level-item tag">8</span></span></a><ul><li><a class="level is-mobile" href="/categories/NET/Blazor/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/NET/C/"><span class="level-start"><span class="level-item">C#</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Crank/"><span class="level-start"><span class="level-item">Crank</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Framework/"><span class="level-start"><span class="level-item">Framework</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/MASA-Auth/"><span class="level-start"><span class="level-item">MASA Auth</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/MASA-Framework/"><span class="level-start"><span class="level-item">MASA Framework</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Redis/"><span class="level-start"><span class="level-item">Redis</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Template/"><span class="level-start"><span class="level-item">Template</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/Dapr/"><span class="level-start"><span class="level-item">Dapr</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/K8S/"><span class="level-start"><span class="level-item">K8S</span></span><span class="level-end"><span class="level-item tag">1</span></span></a><ul><li><a class="level is-mobile" href="/categories/K8S/Helm/"><span class="level-start"><span class="level-item">Helm</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/MASA/"><span class="level-start"><span class="level-item">MASA</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">4</span></span></a><ul><li><a class="level is-mobile" href="/categories/MASA-Blazor/MAUI/"><span class="level-start"><span class="level-item">MAUI</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/MASA-IoT/"><span class="level-start"><span class="level-item">MASA IoT</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/MASA-Stack/"><span class="level-start"><span class="level-item">MASA Stack</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/MAUI/"><span class="level-start"><span class="level-item">MAUI</span></span><span class="level-end"><span class="level-item tag">9</span></span></a><ul><li><a class="level is-mobile" href="/categories/MAUI/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/"><span class="level-start"><span class="level-item">社区例会</span></span><span class="level-end"><span class="level-item tag">2</span></span></a><ul><li><a class="level is-mobile" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/MASA-Stack/"><span class="level-start"><span class="level-item">MASA Stack</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2023/05/10/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（三）管理设备的连接状态"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-05-10T15:30:00.000Z">2023-05-10</time></p><p class="title"><a href="/2023/05/10/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81/">使用MASA全家桶从零开始搭建IoT平台（三）管理设备的连接状态</a></p><p class="categories"><a href="/categories/MASA-IoT/">MASA IoT</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/05/05/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（二）设备注册"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-05-05T15:32:00.000Z">2023-05-05</time></p><p class="title"><a href="/2023/05/05/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C/">使用MASA全家桶从零开始搭建IoT平台（二）设备注册</a></p><p class="categories"><a href="/categories/MASA/">MASA</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/04/21/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（一）环境准备"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-04-21T15:30:00.000Z">2023-04-21</time></p><p class="title"><a href="/2023/04/21/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">使用MASA全家桶从零开始搭建IoT平台（一）环境准备</a></p><p class="categories"><a href="/categories/MASA/">MASA</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/03/13/MASA%20Blazor/Blazor%E5%9C%A8IoT%E9%A2%86%E5%9F%9F%E7%9A%84%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5%20@.NET%E5%BC%80%E5%8F%91%E8%80%85%E6%97%A5/"><img src="https://cdn.masastack.com/images/blogs/blazor%20in%20iot3.13.jpg" alt="Blazor在IoT领域的前端实践 @.NET开发者日"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-03-13T14:35:00.000Z">2023-03-13</time></p><p class="title"><a href="/2023/03/13/MASA%20Blazor/Blazor%E5%9C%A8IoT%E9%A2%86%E5%9F%9F%E7%9A%84%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5%20@.NET%E5%BC%80%E5%8F%91%E8%80%85%E6%97%A5/">Blazor在IoT领域的前端实践 @.NET开发者日</a></p><p class="categories"><a href="/categories/MASA-Blazor/">MASA Blazor</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/03/08/MASA%20Blazor/MASA%20MAUI%20Plugin%20%EF%BC%88%E5%8D%81%EF%BC%89iOS%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%EF%BC%88%E5%8E%9F%E7%94%9FAPNS%E6%96%B9%E5%BC%8F%EF%BC%89/"><img src="https://cdn.masastack.com/images/blogs/masa-blazor-love-maui.jpg" alt="MASA MAUI Plugin （十）iOS消息推送（原生APNS方式）"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-03-08T13:35:00.000Z">2023-03-08</time></p><p class="title"><a href="/2023/03/08/MASA%20Blazor/MASA%20MAUI%20Plugin%20%EF%BC%88%E5%8D%81%EF%BC%89iOS%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%EF%BC%88%E5%8E%9F%E7%94%9FAPNS%E6%96%B9%E5%BC%8F%EF%BC%89/">MASA MAUI Plugin （十）iOS消息推送（原生APNS方式）</a></p><p class="categories"><a href="/categories/MAUI/">MAUI</a> / <a href="/categories/MAUI/MASA-Blazor/">MASA Blazor</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/05/"><span class="level-start"><span class="level-item">五月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/04/"><span class="level-start"><span class="level-item">四月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/03/"><span class="level-start"><span class="level-item">三月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/11/"><span class="level-start"><span class="level-item">十一月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">九月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/12/"><span class="level-start"><span class="level-item">十二月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/11/"><span class="level-start"><span class="level-item">十一月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">十月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/NET/"><span class="tag">.NET</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Blazor/"><span class="tag">Blazor</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C-8-0/"><span class="tag">C#8.0</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CQRS/"><span class="tag">CQRS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Caching/"><span class="tag">Caching</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Caller/"><span class="tag">Caller</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Configuration/"><span class="tag">Configuration</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crank/"><span class="tag">Crank</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DDD/"><span class="tag">DDD</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DI/"><span class="tag">DI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Distributed-lock/"><span class="tag">Distributed lock</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/EFCore/"><span class="tag">EFCore</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/EventBus/"><span class="tag">EventBus</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Framework/"><span class="tag">Framework</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Helm/"><span class="tag">Helm</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HttpClient/"><span class="tag">HttpClient</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/K8S/"><span class="tag">K8S</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Auth/"><span class="tag">MASA Auth</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Auth-Design/"><span class="tag">MASA Auth Design</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Blazor/"><span class="tag">MASA Blazor</span><span class="tag">23</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Blazor/"><span class="tag">MASA Blazor#</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Framework/"><span class="tag">MASA Framework</span><span class="tag">28</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Framework-Design/"><span class="tag">MASA Framework Design</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-IoT/"><span class="tag">MASA IoT</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Stack/"><span class="tag">MASA Stack</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MAUI/"><span class="tag">MAUI</span><span class="tag">13</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Mapster/"><span class="tag">Mapster</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Minimal-Api/"><span class="tag">Minimal Api</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MinimalAPIs/"><span class="tag">MinimalAPIs</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/OM/"><span class="tag">OM</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SnowFlake/"><span class="tag">SnowFlake</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Storage/"><span class="tag">Storage</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Template/"><span class="tag">Template</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Test/"><span class="tag">Test</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI/"><span class="tag">UI</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/dapr/"><span class="tag">dapr</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/i18n/"><span class="tag">i18n</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">MASA Blogs</a><p class="is-size-7"><span>&copy; 2023 MASA</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/masastack"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

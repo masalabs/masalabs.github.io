@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>MASA Stack 第四期社区例会 - MASA Blogs</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#512bd4"><meta name="application-name" content="MASA Blogs"><meta name="msapplication-TileImage" content="/images/avatar.png"><meta name="msapplication-TileColor" content="#512bd4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MASA Blogs"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="MASA Stack 产品讲解​  MASA PM（基建与项管）MASA Auth（权限认证中心）MASA DCC (配置中心)MASA MC（消息中心）MASA Scheduler （调度中心）MASA Alert （告警中心，开发中）MASA TSC（故障排查控制台，开发中）"><meta property="og:type" content="blog"><meta property="og:title" content="MASA Stack 第四期社区例会"><meta property="og:url" content="https://blogs.masastack.com/2022/08/31/MASA%20Stack/%E7%AC%AC%E5%9B%9B%E6%9C%9F%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/"><meta property="og:site_name" content="MASA Blogs"><meta property="og:description" content="MASA Stack 产品讲解​  MASA PM（基建与项管）MASA Auth（权限认证中心）MASA DCC (配置中心)MASA MC（消息中心）MASA Scheduler （调度中心）MASA Alert （告警中心，开发中）MASA TSC（故障排查控制台，开发中）"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.masastack.com/images/blogs/shequlihui4.jpg"><meta property="article:published_time" content="2022-08-31T13:09:00.000Z"><meta property="article:modified_time" content="2023-05-26T06:39:56.429Z"><meta property="article:author" content="MASA"><meta property="article:tag" content="MASA Blazor"><meta property="article:tag" content="MASA Framework"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://cdn.masastack.com/images/blogs/shequlihui4.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blogs.masastack.com/2022/08/31/MASA%20Stack/%E7%AC%AC%E5%9B%9B%E6%9C%9F%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/"},"headline":"MASA Stack 第四期社区例会","image":["https://cdn.masastack.com/images/blogs/shequlihui4.jpg"],"datePublished":"2022-08-31T13:09:00.000Z","dateModified":"2023-05-26T06:39:56.429Z","author":{"@type":"Person","name":"MASA"},"publisher":{"@type":"Organization","name":"MASA Blogs","logo":{"@type":"ImageObject","url":{"text":"MASA Blogs"}}},"description":"MASA Stack 产品讲解​  MASA PM（基建与项管）MASA Auth（权限认证中心）MASA DCC (配置中心)MASA MC（消息中心）MASA Scheduler （调度中心）MASA Alert （告警中心，开发中）MASA TSC（故障排查控制台，开发中）"}</script><link rel="canonical" href="https://blogs.masastack.com/2022/08/31/MASA%20Stack/%E7%AC%AC%E5%9B%9B%E6%9C%9F%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/"><link rel="icon" href="/images/avatar.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">MASA Blogs</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/masastack"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://cdn.masastack.com/images/blogs/shequlihui4.jpg" alt="MASA Stack 第四期社区例会"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-08-31T13:09:00.000Z" title="8/31/2022, 1:09:00 PM">2022-08-31</time>发表</span><span class="level-item"><time dateTime="2023-05-26T06:39:56.429Z" title="5/26/2023, 6:39:56 AM">2023-05-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/">社区例会</a><span> / </span><a class="link-muted" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/MASA-Stack/">MASA Stack</a></span><span class="level-item">12 分钟读完 (大约1760个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">MASA Stack 第四期社区例会</h1><div class="content"><h1 id="MASA-Stack-产品讲解"><a href="#MASA-Stack-产品讲解" class="headerlink" title="MASA Stack 产品讲解"></a><strong>MASA Stack 产品讲解</strong></h1><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e82d1741a73a4f2aa79d9f3d46664526~tplv-k3u1fbpfcp-zoom-1.image">​</p>
+<p><img src="/"></p>
+<p>MASA PM（基建与项管）<br>MASA Auth（权限认证中心）<br>MASA DCC (配置中心)<br>MASA MC（消息中心）<br>MASA Scheduler （调度中心）<br><strong>MASA Alert （告警中心，开发中）<br>MASA TSC（故障排查控制台，开发中）</strong></p>
+<span id="more"></span>
+
+<h1 id="PM"><a href="#PM" class="headerlink" title="PM"></a><strong>PM</strong></h1><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5dab2c58a63740c889386c5932905bc6~tplv-k3u1fbpfcp-zoom-1.image">​</p>
+<p><img src="/"></p>
+<p><strong>1</strong>搭建环境&#x2F;集群</p>
+<p>IT项目标准化建设、保障信息安全、数据隔离、风险容灾</p>
+<p>适用两地三中心的企业级场景</p>
+<p><strong>2</strong>项目与应用程序</p>
+<p>可创建和管理多个项目，项目包含多个应用程序。</p>
+<p>可复用，降低成本提高效率</p>
+<p><strong>3</strong>项目团队</p>
+<p>可用项目团队来管理多个项目</p>
+<p>灵活组织结构，扁平化项目管理</p>
+<h1 id="MASA-AUTH"><a href="#MASA-AUTH" class="headerlink" title="MASA AUTH"></a><strong>MASA AUTH</strong></h1><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/92fafcf6e0e04db9baad2515a6d89af3~tplv-k3u1fbpfcp-zoom-1.image">​</p>
+<p><img src="/"></p>
+<p>MASA Auth是一款企业底层多功能且实用性极高的软件系统，用于ToB、ToC以及企业级的多用户综合管理配置平台。</p>
+<p><strong>权限管理</strong></p>
+<p><strong>1</strong>全局系统权限分配</p>
+<p>集中处理企业级多系统权限配置与修改</p>
+<p><strong>2</strong>授权认证</p>
+<p>SSO单点登录，可使用一次登录多系统互通。随时切换企业内多系统。</p>
+<p><strong>3</strong>角色权限</p>
+<p>以国际通用设计规范RBAC设计模型进行设计，提供多对多的角色权限控制。</p>
+<p><strong>用户管理</strong></p>
+<p><strong>4</strong>企业员工、企业用户、第三方用户</p>
+<p>统一用户管理中心，提供域账号登录同步等。</p>
+<p><strong>5</strong>组织架构</p>
+<p>无限级部门组织结构，应对企业级多部门权限管理以及跨层级的部门管理</p>
+<p><strong>6</strong>全局控制</p>
+<p>企业级全局导航，个人中心，多系统登录相关配置</p>
+<h1 id="MASA-DCC"><a href="#MASA-DCC" class="headerlink" title="MASA DCC"></a><strong>MASA DCC</strong></h1><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/707b4567c9fe40019ea9f7e79ea79b34~tplv-k3u1fbpfcp-zoom-1.image">​</p>
+<p><img src="/"></p>
+<p>提供企业级别综合配置中心，配置系统底层相关参数以及半业务所需参数。</p>
+<p><strong>1</strong>配置对象</p>
+<p>可以创建项目、应用程序等维度的对象并配置其对应的参数和备份其参数</p>
+<p><strong>2</strong>发布配置</p>
+<p>可以切换不同对象进行不同版本的配置发布提高IT运维整体效率，大幅度缩减人工时长的成本</p>
+<p><strong>3</strong>克隆配置</p>
+<p>提供包括复制在内的克隆功能，再切换不同版本系统需求时可以模拟近似配置进行克隆</p>
+<p><strong>4</strong>综合配置</p>
+<p>包含系统标签，综合分析指标，业务指标等系统相关联的综合配置项</p>
+<h1 id="MASA-MC"><a href="#MASA-MC" class="headerlink" title="MASA MC"></a><strong>MASA MC</strong></h1><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1b8f56d5617b402fa89926c5afc26f26~tplv-k3u1fbpfcp-zoom-1.image">​</p>
+<p><img src="/"></p>
+<p> </p>
+<p>消息中心是企业级软件应用不可缺少的一个部分，涉及内容多且广泛。属于企业底层必备软件</p>
+<p><strong>1</strong>消息渠道</p>
+<p>目前已经支持短信渠道、邮箱渠道、系统站内信息渠道；可衍射其他外部消息发布渠道。</p>
+<p><strong>2</strong>消息模板</p>
+<p>支持多消息渠道创建不同的消息版本</p>
+<p><strong>3</strong>消息发送规则</p>
+<p>系统级定时、触发、自动生成等消息规则配置。适用普通企业级常规消息发送范围</p>
+<p><strong>4</strong>消息发送对象管理</p>
+<p>包含发送消息对象的记录，分组，以及群发消息等</p>
+<h1 id="SCHEDULER"><a href="#SCHEDULER" class="headerlink" title="SCHEDULER"></a><strong>SCHEDULER</strong></h1><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c70e9ea251d34bdd93a5a880e782d107~tplv-k3u1fbpfcp-zoom-1.image">​</p>
+<p><img src="/"></p>
+<p> </p>
+<p>主要处理各系统间分布式任务处理，多任务情况下进行合理分配对应资源。<br>可以设置定时任务，自动任务，任务失败时的响应策略，在目前系统中来看属于底层功能型产品，可以搭他系统发挥效果。</p>
+<p>定时任务</p>
+<p>自动触发任务</p>
+<h1 id="MASA-Framewrok-更新内容"><a href="#MASA-Framewrok-更新内容" class="headerlink" title="MASA Framewrok 更新内容"></a><strong>MASA Framewrok 更新内容</strong></h1><p><strong>重命名</strong></p>
+<p>Ef - &gt; EFCore</p>
+<p>EntityFrameworkCore -&gt; EFCore</p>
+<p>Oidc -&gt; OpenIdConnect</p>
+<p>BasicAbility -&gt; StackSdks</p>
+<p>Identity.IdentityModel-&gt; Authentication.Identity</p>
+<p><strong>文档</strong></p>
+<ol>
+<li><p>修复Exception文档</p>
+</li>
+<li><p>调整首页文档</p>
+</li>
+</ol>
+<p><strong>修复</strong></p>
+<ol>
+<li><p>修复IMasaConfiguration大小写敏感问题</p>
+</li>
+<li><p>修复AutoComplete设置内容出错</p>
+</li>
+<li><p>Configuration     修复获取对应的CallerProvider</p>
+</li>
+<li><p>修复Caller不支持响应值为null</p>
+</li>
+</ol>
+<p><strong>功能（已完成）</strong></p>
+<p><strong>Caller</strong></p>
+<ol>
+<li><p>CallerBase支持与获取当前Caller相同的生命周期的服务</p>
+</li>
+<li><p>DaprClient支持自定义RequestMessage</p>
+</li>
+</ol>
+<p><strong>Data</strong></p>
+<p>序列化、反序列化&gt;&gt;Json、Yaml</p>
+<p>IdGenerator&gt;&gt;支持Id生成器工厂</p>
+<p><strong>Cqrs</strong></p>
+<p>Query 移除Result不能为空限制</p>
+<p><strong>Configuration</strong></p>
+<ol>
+<li><p>简化Dcc配置</p>
+</li>
+<li><p>支持全局配置</p>
+</li>
+</ol>
+<p><strong>功能（进行中）</strong></p>
+<p><strong>Cache</strong></p>
+<p>分布式缓存、多级缓存</p>
+<p><strong>Identity</strong></p>
+<p>支持Blazor Server</p>
+<p>支持Blazor Assembly</p>
+<p>支持自定义用户模型</p>
+<p><strong>Localization</strong></p>
+<ol>
+<li><p>I18n </p>
+</li>
+<li><p>Date</p>
+</li>
+</ol>
+<p> </p>
+<p><strong>MinimalAPI</strong></p>
+<p>支持一组服务设置一次权限策略</p>
+<h1 id="MASA-Blazor-更新内容"><a href="#MASA-Blazor-更新内容" class="headerlink" title="MASA Blazor 更新内容"></a><strong>MASA Blazor 更新内容</strong></h1><p><strong>新功能</strong></p>
+<p><strong>MobilePickerView</strong>：专为移动设备设计的选择视图。提供多个选项集合供用户选择，支持单列选择、多列选择和级联选择。</p>
+<p><strong>MobilePicker</strong>：专为移动设备设计的选择器。提供多个选项集合供用户选择，支持单列选择、多列选择和级联选择。</p>
+<p><strong>MobileDateTimePicker</strong>：专为移动设备设计的日期选择器。</p>
+<p><strong>MobileDatePicker</strong>：专为移动设备设计的时间选择器。</p>
+<p><strong>MobileTimePicker</strong>：专为移动设备设计的时间选择器。</p>
+<p><strong>MobileCascader</strong>：更改异步加载子对象的UI和行为。</p>
+<p><strong>文档</strong></p>
+<p>平铺和标记预置组件。</p>
+<p>在LOGO后面附加版本标签。</p>
+<p>支持在移动设备上algolia搜索。</p>
+<p>修复移动端AppBar的高度会影响桌面端Top的计算。</p>
+<p>信息来源：<a target="_blank" rel="noopener" href="https://github.com/BlazorComponent/MASA.Blazor/releases">https://github.com/BlazorComponent/MASA.Blazor/releases</a></p>
+<h1 id="社区近期问题解答"><a href="#社区近期问题解答" class="headerlink" title="社区近期问题解答"></a><strong>社区近期问题解答</strong></h1><p><strong>Q1:</strong> MASA Framework有多租户的内建实现吗？</p>
+<p><strong>A:</strong> 我们提供了多租户与多环境的默认实现</p>
+<p><strong>Q2:</strong> MASA有工作流吗</p>
+<p><strong>A:</strong> 有规划工作流，不过目前还没有开始</p>
+<p><strong>Q3:</strong> 有完整的链路跟踪处理吗</p>
+<p><strong>A:</strong> 后面课程会有讲解如何做链路跟踪(<a target="_blank" rel="noopener" href="https://space.bilibili.com/1000468483">https://space.bilibili.com/1000468483</a>)</p>
+<p><strong>Q4:</strong> MASA Framework的项目地址是多少?</p>
+<p><strong>A:</strong> <a target="_blank" rel="noopener" href="https://github.com/masastack/MASA.Framework">https://github.com/masastack/MASA.Framework</a></p>
+<p><strong>Q5</strong>:Framework下载后构建失败</p>
+<p><strong>A:</strong> 新的Framework文件夹层级较深，可通过以下方案处理。1. 移到本地磁盘根目录或相对较短路径 2. 更改注册表解除长度限制</p>
+<hr>
+<p>如果你对我们的开源项目感兴趣，无论是代码贡献、使用、提 Issue，欢迎联系我们</p>
+<p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cf256ac8661141a7aa7fbb8fe333e672~tplv-k3u1fbpfcp-watermark.image" alt="68747470733a2f2f692e6c6f6c692e6e65742f323032312f31312f31392f4e50734f645a7547664265703344592e706e67.png"></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>MASA Stack 第四期社区例会</p><p><a href="https://blogs.masastack.com/2022/08/31/MASA Stack/第四期社区例会/">https://blogs.masastack.com/2022/08/31/MASA Stack/第四期社区例会/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>MASA</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-08-31</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-05-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/MASA-Blazor/">MASA Blazor</a><a class="link-muted mr-2" rel="tag" href="/tags/MASA-Framework/">MASA Framework</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/09/20/MASA%20Blazor/MASA%20MAUI%20Plugin%20%E5%AE%89%E5%8D%93%E8%93%9D%E7%89%99%E4%BD%8E%E5%8A%9F%E8%80%97%EF%BC%88%E4%B8%80%EF%BC%89%E8%93%9D%E7%89%99%E6%89%AB%E6%8F%8F/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">MASA MAUI Plugin 安卓蓝牙低功耗（一）蓝牙扫描</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/08/29/MASA%20Blazor/MAUI%20+%20Masa%20Blazor%20%E5%BC%80%E5%8F%91%E7%95%8C%E9%9D%A2%E8%B7%9F%E9%9A%8F%E7%B3%BB%E7%BB%9F%E4%B8%BB%E9%A2%98%E5%88%87%E6%8D%A2%E7%9A%84App/"><span class="level-item">MAUI + Masa Blazor 开发界面跟随系统主题切换的App</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/avatar.png" alt="MASA"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">MASA</p><p class="is-size-6 is-block">Make change easier.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>杭州</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">80</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">22</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">38</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/masastack" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/masastack"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#MASA-Stack-产品讲解"><span class="level-left"><span class="level-item">1</span><span class="level-item">MASA Stack 产品讲解</span></span></a></li><li><a class="level is-mobile" href="#PM"><span class="level-left"><span class="level-item">2</span><span class="level-item">PM</span></span></a></li><li><a class="level is-mobile" href="#MASA-AUTH"><span class="level-left"><span class="level-item">3</span><span class="level-item">MASA AUTH</span></span></a></li><li><a class="level is-mobile" href="#MASA-DCC"><span class="level-left"><span class="level-item">4</span><span class="level-item">MASA DCC</span></span></a></li><li><a class="level is-mobile" href="#MASA-MC"><span class="level-left"><span class="level-item">5</span><span class="level-item">MASA MC</span></span></a></li><li><a class="level is-mobile" href="#SCHEDULER"><span class="level-left"><span class="level-item">6</span><span class="level-item">SCHEDULER</span></span></a></li><li><a class="level is-mobile" href="#MASA-Framewrok-更新内容"><span class="level-left"><span class="level-item">7</span><span class="level-item">MASA Framewrok 更新内容</span></span></a></li><li><a class="level is-mobile" href="#MASA-Blazor-更新内容"><span class="level-left"><span class="level-item">8</span><span class="level-item">MASA Blazor 更新内容</span></span></a></li><li><a class="level is-mobile" href="#社区近期问题解答"><span class="level-left"><span class="level-item">9</span><span class="level-item">社区近期问题解答</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://github.com/masalabs/MASA.EShop" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MASA.EShop</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://github.com/BlazorComponent/MASA.Blazor" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MASA.Blazor</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://www.cnblogs.com/doddgu/tag/Dapr" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">doddgu&#039;blog</span></span><span class="level-right"><span class="level-item tag">www.cnblogs.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/NET/"><span class="level-start"><span class="level-item">.NET</span></span><span class="level-end"><span class="level-item tag">45</span></span></a><ul><li><a class="level is-mobile" href="/categories/NET/Blazor/"><span class="level-start"><span class="level-item">Blazor</span></span><span class="level-end"><span class="level-item tag">8</span></span></a><ul><li><a class="level is-mobile" href="/categories/NET/Blazor/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/NET/C/"><span class="level-start"><span class="level-item">C#</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Crank/"><span class="level-start"><span class="level-item">Crank</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Framework/"><span class="level-start"><span class="level-item">Framework</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/MASA-Auth/"><span class="level-start"><span class="level-item">MASA Auth</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/MASA-Framework/"><span class="level-start"><span class="level-item">MASA Framework</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Redis/"><span class="level-start"><span class="level-item">Redis</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Template/"><span class="level-start"><span class="level-item">Template</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/Dapr/"><span class="level-start"><span class="level-item">Dapr</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/K8S/"><span class="level-start"><span class="level-item">K8S</span></span><span class="level-end"><span class="level-item tag">1</span></span></a><ul><li><a class="level is-mobile" href="/categories/K8S/Helm/"><span class="level-start"><span class="level-item">Helm</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/MASA/"><span class="level-start"><span class="level-item">MASA</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">4</span></span></a><ul><li><a class="level is-mobile" href="/categories/MASA-Blazor/MAUI/"><span class="level-start"><span class="level-item">MAUI</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/MASA-IoT/"><span class="level-start"><span class="level-item">MASA IoT</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/MASA-Stack/"><span class="level-start"><span class="level-item">MASA Stack</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/MAUI/"><span class="level-start"><span class="level-item">MAUI</span></span><span class="level-end"><span class="level-item tag">9</span></span></a><ul><li><a class="level is-mobile" href="/categories/MAUI/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/"><span class="level-start"><span class="level-item">社区例会</span></span><span class="level-end"><span class="level-item tag">2</span></span></a><ul><li><a class="level is-mobile" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/MASA-Stack/"><span class="level-start"><span class="level-item">MASA Stack</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2023/05/10/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（三）管理设备的连接状态"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-05-10T15:30:00.000Z">2023-05-10</time></p><p class="title"><a href="/2023/05/10/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81/">使用MASA全家桶从零开始搭建IoT平台（三）管理设备的连接状态</a></p><p class="categories"><a href="/categories/MASA-IoT/">MASA IoT</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/05/05/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（二）设备注册"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-05-05T15:32:00.000Z">2023-05-05</time></p><p class="title"><a href="/2023/05/05/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C/">使用MASA全家桶从零开始搭建IoT平台（二）设备注册</a></p><p class="categories"><a href="/categories/MASA/">MASA</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/04/21/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（一）环境准备"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-04-21T15:30:00.000Z">2023-04-21</time></p><p class="title"><a href="/2023/04/21/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">使用MASA全家桶从零开始搭建IoT平台（一）环境准备</a></p><p class="categories"><a href="/categories/MASA/">MASA</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/03/13/MASA%20Blazor/Blazor%E5%9C%A8IoT%E9%A2%86%E5%9F%9F%E7%9A%84%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5%20@.NET%E5%BC%80%E5%8F%91%E8%80%85%E6%97%A5/"><img src="https://cdn.masastack.com/images/blogs/blazor%20in%20iot3.13.jpg" alt="Blazor在IoT领域的前端实践 @.NET开发者日"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-03-13T14:35:00.000Z">2023-03-13</time></p><p class="title"><a href="/2023/03/13/MASA%20Blazor/Blazor%E5%9C%A8IoT%E9%A2%86%E5%9F%9F%E7%9A%84%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5%20@.NET%E5%BC%80%E5%8F%91%E8%80%85%E6%97%A5/">Blazor在IoT领域的前端实践 @.NET开发者日</a></p><p class="categories"><a href="/categories/MASA-Blazor/">MASA Blazor</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/03/08/MASA%20Blazor/MASA%20MAUI%20Plugin%20%EF%BC%88%E5%8D%81%EF%BC%89iOS%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%EF%BC%88%E5%8E%9F%E7%94%9FAPNS%E6%96%B9%E5%BC%8F%EF%BC%89/"><img src="https://cdn.masastack.com/images/blogs/masa-blazor-love-maui.jpg" alt="MASA MAUI Plugin （十）iOS消息推送（原生APNS方式）"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-03-08T13:35:00.000Z">2023-03-08</time></p><p class="title"><a href="/2023/03/08/MASA%20Blazor/MASA%20MAUI%20Plugin%20%EF%BC%88%E5%8D%81%EF%BC%89iOS%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%EF%BC%88%E5%8E%9F%E7%94%9FAPNS%E6%96%B9%E5%BC%8F%EF%BC%89/">MASA MAUI Plugin （十）iOS消息推送（原生APNS方式）</a></p><p class="categories"><a href="/categories/MAUI/">MAUI</a> / <a href="/categories/MAUI/MASA-Blazor/">MASA Blazor</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/05/"><span class="level-start"><span class="level-item">五月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/04/"><span class="level-start"><span class="level-item">四月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/03/"><span class="level-start"><span class="level-item">三月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/11/"><span class="level-start"><span class="level-item">十一月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">九月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/12/"><span class="level-start"><span class="level-item">十二月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/11/"><span class="level-start"><span class="level-item">十一月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">十月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/NET/"><span class="tag">.NET</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Blazor/"><span class="tag">Blazor</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C-8-0/"><span class="tag">C#8.0</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CQRS/"><span class="tag">CQRS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Caching/"><span class="tag">Caching</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Caller/"><span class="tag">Caller</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Configuration/"><span class="tag">Configuration</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crank/"><span class="tag">Crank</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DDD/"><span class="tag">DDD</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DI/"><span class="tag">DI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Distributed-lock/"><span class="tag">Distributed lock</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/EFCore/"><span class="tag">EFCore</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/EventBus/"><span class="tag">EventBus</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Framework/"><span class="tag">Framework</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Helm/"><span class="tag">Helm</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HttpClient/"><span class="tag">HttpClient</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/K8S/"><span class="tag">K8S</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Auth/"><span class="tag">MASA Auth</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Auth-Design/"><span class="tag">MASA Auth Design</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Blazor/"><span class="tag">MASA Blazor</span><span class="tag">23</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Blazor/"><span class="tag">MASA Blazor#</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Framework/"><span class="tag">MASA Framework</span><span class="tag">28</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Framework-Design/"><span class="tag">MASA Framework Design</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-IoT/"><span class="tag">MASA IoT</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Stack/"><span class="tag">MASA Stack</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MAUI/"><span class="tag">MAUI</span><span class="tag">13</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Mapster/"><span class="tag">Mapster</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Minimal-Api/"><span class="tag">Minimal Api</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MinimalAPIs/"><span class="tag">MinimalAPIs</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/OM/"><span class="tag">OM</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SnowFlake/"><span class="tag">SnowFlake</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Storage/"><span class="tag">Storage</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Template/"><span class="tag">Template</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Test/"><span class="tag">Test</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI/"><span class="tag">UI</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/dapr/"><span class="tag">dapr</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/i18n/"><span class="tag">i18n</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">MASA Blogs</a><p class="is-size-7"><span>&copy; 2023 MASA</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/masastack"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

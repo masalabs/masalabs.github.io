@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Blazor是春天还是寒风里的挣扎 - MASA Blogs</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#512bd4"><meta name="application-name" content="MASA Blogs"><meta name="msapplication-TileImage" content="/images/avatar.png"><meta name="msapplication-TileColor" content="#512bd4"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="MASA Blogs"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="官方解释 BlazorBlazor 允许您使用c#而不是 JavaScript构建交互式web UI。 Blazor 应用由可重用的 web UI 组件组成，这些组件使用 c#、HTML 和 CSS 实现。客户端和服务器代码都是用 c#编写的，允许您共享代码和库。 Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：  使用 C# 代替 JavaScript 来创建信息丰富"><meta property="og:type" content="blog"><meta property="og:title" content="Blazor是春天还是寒风里的挣扎"><meta property="og:url" content="https://blogs.masastack.com/2021/10/25/masa/framework/masa-blazor/0/"><meta property="og:site_name" content="MASA Blogs"><meta property="og:description" content="官方解释 BlazorBlazor 允许您使用c#而不是 JavaScript构建交互式web UI。 Blazor 应用由可重用的 web UI 组件组成，这些组件使用 c#、HTML 和 CSS 实现。客户端和服务器代码都是用 c#编写的，允许您共享代码和库。 Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：  使用 C# 代替 JavaScript 来创建信息丰富"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://i.loli.net/2021/11/19/J57DRscqgZ9r3Km.png"><meta property="article:published_time" content="2021-10-25T14:00:00.000Z"><meta property="article:modified_time" content="2023-05-26T06:39:56.433Z"><meta property="article:author" content="MASA"><meta property="article:tag" content="Blazor"><meta property="article:tag" content="MASA Blazor#"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://i.loli.net/2021/11/19/J57DRscqgZ9r3Km.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blogs.masastack.com/2021/10/25/masa/framework/masa-blazor/0/"},"headline":"Blazor是春天还是寒风里的挣扎","image":["https://i.loli.net/2021/11/19/J57DRscqgZ9r3Km.png"],"datePublished":"2021-10-25T14:00:00.000Z","dateModified":"2023-05-26T06:39:56.433Z","author":{"@type":"Person","name":"MASA"},"publisher":{"@type":"Organization","name":"MASA Blogs","logo":{"@type":"ImageObject","url":{"text":"MASA Blogs"}}},"description":"官方解释 BlazorBlazor 允许您使用c#而不是 JavaScript构建交互式web UI。 Blazor 应用由可重用的 web UI 组件组成，这些组件使用 c#、HTML 和 CSS 实现。客户端和服务器代码都是用 c#编写的，允许您共享代码和库。 Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：  使用 C# 代替 JavaScript 来创建信息丰富"}</script><link rel="canonical" href="https://blogs.masastack.com/2021/10/25/masa/framework/masa-blazor/0/"><link rel="icon" href="/images/avatar.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-dark.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.2.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">MASA Blogs</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/masastack"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://i.loli.net/2021/11/19/J57DRscqgZ9r3Km.png" alt="Blazor是春天还是寒风里的挣扎"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-10-25T14:00:00.000Z" title="10/25/2021, 2:00:00 PM">2021-10-25</time>发表</span><span class="level-item"><time dateTime="2023-05-26T06:39:56.433Z" title="5/26/2023, 6:39:56 AM">2023-05-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/NET/">.NET</a><span> / </span><a class="link-muted" href="/categories/NET/Blazor/">Blazor</a><span> / </span><a class="link-muted" href="/categories/NET/Blazor/MASA-Blazor/">MASA Blazor</a></span><span class="level-item">23 分钟读完 (大约3502个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Blazor是春天还是寒风里的挣扎</h1><div class="content"><h2 id="官方解释-Blazor"><a href="#官方解释-Blazor" class="headerlink" title="官方解释 Blazor"></a>官方解释 Blazor</h2><p>Blazor 允许您<code>使用c#</code>而不是 JavaScript<code>构建交互式web UI</code>。 Blazor 应用由可重用的 web UI 组件组成，这些组件使用 c#、HTML 和 CSS 实现。客户端和服务器代码都是用 c#编写的，允许您共享代码和库。</p>
+<p>Blazor 是一个使用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/standard/tour">.NET</a> 生成交互式客户端 Web UI 的框架：</p>
+<ul>
+<li>使用 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/csharp/">C#</a> 代替 <a target="_blank" rel="noopener" href="https://www.javascript.com/">JavaScript</a> 来创建信息丰富的交互式 UI。</li>
+<li>共享使用 .NET 编写的服务器端和客户端应用逻辑。</li>
+<li>将 UI 呈现为 HTML 和 CSS，以支持众多浏览器，其中包括移动浏览器。</li>
+<li>与新式托管平台（如 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/standard/microservices-architecture/container-docker-introduction/index">Docker</a>）集成。</li>
+</ul>
+<p>使用 .NET 进行客户端 Web 开发可提供以下优势：</p>
+<ul>
+<li>使用 C# 代替 JavaScript 来编写代码。</li>
+<li>利用现有的 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/dotnet/standard/class-libraries">.NET 库</a>生态系统。</li>
+<li>在服务器和客户端之间共享应用逻辑。</li>
+<li>受益于 .NET 的性能、可靠性和安全性。</li>
+<li>在 Windows、Linux 和 macOS 上使用 <a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/">Visual Studio</a> 保持高效工作。</li>
+<li>以一组稳定、功能丰富且易用的通用语言、框架和工具为基础来进行生成。</li>
+</ul>
+<blockquote>
+<p>看到这里有些小伙伴手中的瓜已经要丢出来了，的确有部分是夸大了的，起码 VS 在三个平台高效工作这事儿，嗯。。。其他的继续吃瓜吧</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="Blazor-Vs-MVC"><a href="#Blazor-Vs-MVC" class="headerlink" title="Blazor Vs MVC"></a>Blazor Vs MVC</h2><h3 id="什么是-MVC"><a href="#什么是-MVC" class="headerlink" title="什么是 MVC"></a>什么是 MVC</h3><p>官方解释：ASP.NET Core MVC 是使用“模型-视图-控制器”设计模式构建 Web 应用和 API 的丰富框架。</p>
+<blockquote>
+<p>圈重点，Blazor 是交互式 Web UI，而 MVC 是 Web 应用和 API</p>
+</blockquote>
+<h3 id="什么是交互式-Web-UI"><a href="#什么是交互式-Web-UI" class="headerlink" title="什么是交互式 Web UI"></a>什么是交互式 Web UI</h3><p>谷歌、百度转了一圈，没有这个解释，连 Wiki 也是一脸懵逼。</p>
+<p>尝试理解一下吧，交互式 Web UI 重点在于交互，而 Blazor 的官方解释是用 C#代替 JavaScript，那我们看看 JavaScript 有什么功能，我百度找一段过来：</p>
+<ol>
+<li><p>嵌入动态文本于 HTML 页面</p>
+</li>
+<li><p>对浏览器事件做出响应</p>
+</li>
+<li><p>读写 HTML 元素</p>
+</li>
+<li><p>在数据被提交到服务器之前验证数据</p>
+</li>
+<li><p>检测访客的浏览器信息。控制 cookies，包括创建和修改等</p>
+</li>
+</ol>
+<blockquote>
+<p>有这些基础功能，用户不需要在静态页面里跳来跳去了，的确体验会好很多</p>
+</blockquote>
+<h3 id="Blazor-有什么优势"><a href="#Blazor-有什么优势" class="headerlink" title="Blazor 有什么优势"></a>Blazor 有什么优势</h3><p>提供了一些交互能力，不再是纯粹的静态页，虽然 mvc 可以使用 JavaScript 达到同样的效果，但你需要掌握 JavaScript，甚至还要再学习 jQuery、Angular、Vue 等。而 Blazor 提供的交互能力则是使用 C#。</p>
+<blockquote>
+<p>吹是吹完了，但你真的可以 100% C#吗？这很难，你会遇到各种问题，比如兼容性、性能等。好了，那我可以不用了吗？等等，下面还有瓜</p>
+</blockquote>
+<h2 id="Blazor-Vs-现代前端-Angular、Vue-等"><a href="#Blazor-Vs-现代前端-Angular、Vue-等" class="headerlink" title="Blazor Vs 现代前端(Angular、Vue 等)"></a>Blazor Vs 现代前端(Angular、Vue 等)</h2><p>我们从几个方面来对比一下吧</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><ul>
+<li><p>Blazor：Vistual Stuidio + F5，VS Code&#x2F;命令行工具 + <code>dotnet watch</code></p>
+<blockquote>
+<p>比 WebPack 要快很多，跟 Vite 差不多</p>
+<p>在非复杂场景下 Hot Reload 是可以的，但奇奇怪怪的问题太多了，前景很好，目前来看还是用 Ctrl + F5 启动或者用命令行吧</p>
+<p>VS 2022 的 Ctrl + F5 已经支持 Hot Reload 了</p>
+</blockquote>
+</li>
+<li><p>现代前端：Webpack&#x2F;Vite</p>
+</li>
+</ul>
+<h3 id="全家桶"><a href="#全家桶" class="headerlink" title="全家桶"></a>全家桶</h3><p>以 Vue 为例，Vue 全家桶包括 Vue Cli、Vue Router、Vuex</p>
+<p>Blazor：</p>
+<ul>
+<li>Cli：dotnet cli</li>
+<li>Router：Microsoft.AspNetCore.Components.Routing.Router</li>
+<li>Vuex：Blazor 状态管理，区别在于 WASM 状态保存在浏览器内存中，而 Server 保存在服务器内存中。而且 Blazor 状态管理更强大的是借助.Net 的能力，原生支持持久化存储、跨线路保存（Server 下共享服务器内存）、ASP.NET Core 受保护的浏览器存储（Server 独享功能）</li>
+</ul>
+<h3 id="组件库"><a href="#组件库" class="headerlink" title="组件库"></a>组件库</h3><p>主流的 Bootstrap, Ant Design, Material Design 等双方都有。但由于现代前端多年的积累，质量上的确有一定差距。</p>
+<p>除了丰富程度上，Blazor 允许被 JavaScript 调用加载，并生成 Angualr、React 等组件。</p>
+<blockquote>
+<p>虽然这看起来跟用 C#解决代替 JavaScript 有点冲突，但融入大环境也是不错的</p>
+</blockquote>
+<p>下图演示的是 Blazor 提供的 inventory-grid Component 被 React 引用的例子(当然也可以给 Angular)：</p>
+<blockquote>
+<p>更神奇的是，在 React 复用的 Blazor Component 居然也支持 Hot Reload。先不说 Hot Reload 到底如何，单是这个方向其实还是值得期待一下 Hot Reload 的未来吧。</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/11/19/POdsJTiHWKMfw2V.png" alt="16372888703025.png"></p>
+<p>不止可以给 React 提供复用的组件，还可以给 WPF</p>
+<p><img src="https://i.loli.net/2021/11/19/2Rq6GiAytbv1nuO.png" alt="16372890939413.png"></p>
+<h3 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h3><p>举几个前端常用库来比较。</p>
+<p>网络：现代前端有 axios，Blazor 有 HttpClient</p>
+<p>数据操作：现代前端有 Lodash，Blazor 有 Linq</p>
+<p>时间：现代前端有 moment.js、Day.js，Blazor 有 DateTime 全家桶</p>
+<p>响应式编程：现代前端有 rx.js，Blazor 有 Rx.Net（没有用过，理论上.Net 基本都能用，欢迎纠错）</p>
+<p>Mock：现代前端有 Mock.Js，Blazor 有 Moq，当然除了 mock 以外还有端到端的，双方也都有。</p>
+<hr>
+<p>对比下来其实.Net 反而还有点优势，那就完美吗？当然不是，再说点劣势的部分吧。</p>
+<p>Charts：现代前端有 ECharts 等，Blazor 不想说话</p>
+<blockquote>
+<p>虽然目前 Blazor 的确没有成熟、免费的 Charts 组件库，但因为 Blazor 可以与 JS 交互的能力，调用 ECharts 也很简单，稍微考验一点点小伙伴的动手能力</p>
+</blockquote>
+<p>富文本编辑器、拖拽。。。</p>
+<p>Blazor 骂骂咧咧的退出了群聊。。。</p>
+<h3 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h3><p>Blazor：NuGet</p>
+<p>现代前端：NPM、Yarn</p>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>数据不直观，先从.Net Conf 2021 上的演示截图看一下：</p>
+<p><img src="https://i.loli.net/2021/11/19/L8vbgmXxnAykcsJ.png" alt="16372881585085.png"></p>
+<p>有量化数据吗？有：</p>
+<p><img src="https://i.loli.net/2021/11/19/7tsriSzKugqfLJ2.png" alt="16372881402171.png"></p>
+<blockquote>
+<p>视频地址：<a target="_blank" rel="noopener" href="https://sec.ch9.ms/ch9/daba/468d5211-982b-4c86-8b51-e1c8824edaba/dotNETConfNewBlazorWebAssembly_high.mp4">https://sec.ch9.ms/ch9/daba/468d5211-982b-4c86-8b51-e1c8824edaba/dotNETConfNewBlazorWebAssembly_high.mp4</a></p>
+</blockquote>
+<p>那 AOT 可以解千愁吗？也不是。起码应用大小上来说的确也大了不少，但这并不妨碍 AOT 可以解决特定场景的问题。技术总要选择在适合的场景使用它，而不是盲目的。</p>
+<p><img src="https://i.loli.net/2021/11/19/QOfKkvChBxzZocH.png" alt="16372881676924.png"></p>
+<h3 id="完了吗"><a href="#完了吗" class="headerlink" title="完了吗"></a>完了吗</h3><p>当然没有，其实这样比较对于 Blazor 是不公平的，因为 Blazor 站在.Net 的肩膀上有更多的亮点，比如原生支持的泛型、DI、面向对象设计（虽然 TS 也是）、数不过来的.Net 类库、跨平台应用（MAUI）等。</p>
+<p>其实没有必要只看到 Blazor 的劣势，也可以看看站在.Net 上的前端能走多远，这不也是我们期待的吗？</p>
+<p>看到这里，有些.Net 古董级大佬要出来发话了，Silverlight！是的，但这次 WASM 没有再要求下载插件了。</p>
+<h2 id="Web-Assembly-Vs-Server（服务器端渲染）"><a href="#Web-Assembly-Vs-Server（服务器端渲染）" class="headerlink" title="Web Assembly Vs Server（服务器端渲染）"></a>Web Assembly Vs Server（服务器端渲染）</h2><p>Web Assembly：WebAssembly 是一种新的编码方式，可以在现代的网络浏览器中运行 － 它是一种低级的类汇编语言，具有紧凑的二进制格式，可以接近原生的性能运行，并为诸如 C &#x2F; C ++等语言提供一个编译目标，以便它们可以在 Web 上运行。它也被设计为可以与 JavaScript 共存，允许两者一起工作。</p>
+<p>Server（Server Side Render - SSR）：将组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将这些静态标记”激活”为客户端上完全可交互的应用程序。</p>
+<h3 id="为什么用-SSR"><a href="#为什么用-SSR" class="headerlink" title="为什么用 SSR"></a>为什么用 SSR</h3><p>服务器端渲染 (SSR) 的优势主要在于：</p>
+<ul>
+<li>更好的 SEO，由于搜索引擎爬虫抓取工具可以直接查看完全渲染的页面。</li>
+<li>更快的内容到达时间 (time-to-content)</li>
+</ul>
+<h3 id="什么时候用-SSR"><a href="#什么时候用-SSR" class="headerlink" title="什么时候用 SSR"></a>什么时候用 SSR</h3><p>使用服务器端渲染 (SSR) 时还需要有一些权衡之处：</p>
+<ul>
+<li>开发条件所限。浏览器特定的代码，只能在某些生命周期钩子函数 (lifecycle hook) 中使用；一些外部扩展库 (external library) 可能需要特殊处理，才能在服务器渲染应用程序中运行。</li>
+<li>涉及构建设置和部署的更多要求。与可以部署在任何静态文件服务器上的完全静态单页面应用程序 (SPA) 不同，服务器渲染应用程序，需要处于服务端运行环境。</li>
+<li>更多的服务器端负载。</li>
+</ul>
+<h3 id="服务器端渲染-vs-预渲染-SSR-vs-Prerendering"><a href="#服务器端渲染-vs-预渲染-SSR-vs-Prerendering" class="headerlink" title="服务器端渲染 vs 预渲染 (SSR vs Prerendering)"></a>服务器端渲染 vs 预渲染 (SSR vs Prerendering)</h3><p>如果你调研服务器端渲染 (SSR) 只是用来改善少数营销页面（例如 <code>/</code>, <code>/about</code>, <code>/contact</code> 等）的 SEO，那么你可能需要<strong>预渲染</strong>。无需使用 web 服务器实时动态编译 HTML，而是使用预渲染方式，在构建时 (build time) 简单地生成针对特定路由的静态 HTML 文件。优点是设置预渲染更简单，并可以将你的前端作为一个完全静态的站点。</p>
+<blockquote>
+<p>Blazor Server 支持 Prerendering</p>
+</blockquote>
+<h3 id="Blazor-该选-Web-Assembly-还是-Server"><a href="#Blazor-该选-Web-Assembly-还是-Server" class="headerlink" title="Blazor 该选 Web Assembly 还是 Server"></a>Blazor 该选 Web Assembly 还是 Server</h3><p>看一下.Net Conf 2021 大会上的一张图：</p>
+<p><img src="https://i.loli.net/2021/11/19/J57DRscqgZ9r3Km.png" alt="16367144583538.png"></p>
+<p>总结一下：</p>
+<ul>
+<li>Server 要持久化长连接，有更高的 UI 延迟</li>
+<li>Web Assembly 则是更大的下载大小，和更慢的运行时性能</li>
+</ul>
+<h2 id="我们在做什么"><a href="#我们在做什么" class="headerlink" title="我们在做什么"></a>我们在做什么</h2><p>又是一个老生常谈的问题，.Net 的覆盖面太广了也导致很难解决所有问题。我们在权衡利弊之后是不是可以为.Net 生态共建出自己小小的一份力呢？</p>
+<h3 id="开源的组件库"><a href="#开源的组件库" class="headerlink" title="开源的组件库"></a>开源的组件库</h3><p>再回到组件库上，目前市面上的组件库其实不少了，何必要继续在这个泥潭里插一脚呢？</p>
+<p>开发过组件库的同学，或者贡献过源码的同学应该都体会到了，写一个组件是多么的复杂。而大家对于一个设计的审美角度也是不同的。当你喜欢的设计没有提供实现怎么办？从头写吗，那太累了，所以我们尝试了一件事情。</p>
+<p>先看一下大概思路：</p>
+<p><img src="https://i.loli.net/2021/11/19/3bZzoUVNTLXlwj5.png" alt="架构图.jpg"></p>
+<p>简单的剖析一下：</p>
+<ul>
+<li><p>在 Blazor 的基础上，构建一个新的组件库叫 Blazor Component</p>
+<p>那他有哪些特性呢？</p>
+<ul>
+<li>只提供交互，不提供样式</li>
+<li>标准化 Dom 结构</li>
+<li>开放几乎所有可以自定义的 Slots（插槽，概念引自 Vue），允许你替换 Slots 的 Dom</li>
+</ul>
+</li>
+<li><p>插槽与交互的统一单元测试（目前正在 38%，短期目标是 80%，长期目标是 90%+）</p>
+</li>
+<li><p>基于 Material Design（样式引自 Vuetify）的示例项目，可以达到生产可用（我们自己的公司在用，也是世界五百强企业在用）</p>
+</li>
+<li><p>快速实现新的组件库，只需要基于某个 Design + 样式控制属性 + 特殊交互即可</p>
+</li>
+</ul>
+<p>未来是值得憧憬的，我们希望未来是这样的：</p>
+<blockquote>
+<p>惭愧，蹭了一波字节的热度</p>
+</blockquote>
+<p><img src="https://i.loli.net/2021/11/19/F95djSZlkXNGoUK.jpg" alt="20211119111047.jpg"></p>
+<h3 id="MASA-Blazor"><a href="#MASA-Blazor" class="headerlink" title="MASA Blazor"></a>MASA Blazor</h3><p>基于 Blazor Component 和 Material Design 的 Blazor 组件库</p>
+<ul>
+<li>截止目前共 68 个基础组件，后续会继续增加</li>
+<li>预置组件，提供与.Net 功能深度集成且常用组合类组件，如 Url、面包屑、菜单三联动，高级搜索，i18n 等</li>
+<li>MASA Blazor Pro 提供多种常见场景的预设布局</li>
+<li>全职团队维护，Issue 快速响应</li>
+<li>知名企业在用，未来 MASA Stack 产品线也将一直使用，持续增加新功能</li>
+<li>免费、开源</li>
+</ul>
+<p>我们还计划未来支持一键切换主题（代码切换已经提供）、预置布局、数据展示类组件、WorkFlow 类组件等。</p>
+<h3 id="MASA-Blazor-Pro"><a href="#MASA-Blazor-Pro" class="headerlink" title="MASA Blazor Pro"></a>MASA Blazor Pro</h3><p>基于 MASA Blazor 提供的 Admin 模板，先放几张设计稿吧，源码会跟 MASA Blazor 一起放出。</p>
+<p><img src="https://s2.loli.net/2021/12/16/WZHXorIT8KqSJU5.png" alt="16396146507266.png"></p>
+<p><img src="https://s2.loli.net/2021/12/16/FJ62WEYGPKykh57.png" alt="20211216083304.png"></p>
+<p><img src="https://s2.loli.net/2021/12/16/MX82TReDbaBQxVt.png" alt="20211216083414.png"></p>
+<p><img src="https://s2.loli.net/2021/12/16/vRyEaib1jL4FIfD.png" alt="20211216083839.png"></p>
+<p><img src="https://s2.loli.net/2021/12/16/Ak1Bt8MREQ2SHPi.png" alt="20211216083915.png"></p>
+<p><img src="https://s2.loli.net/2021/12/16/938xdBVs1mDGyre.png" alt="20211216083942.png"></p>
+<h3 id="MASA-EShop"><a href="#MASA-EShop" class="headerlink" title="MASA EShop"></a>MASA EShop</h3><p>基于 MASA Framework 搭建的 EShopOnDapr，将会使用 MASA Blazor Pro 提供完整的前后端示例</p>
+<p><img src="https://s2.loli.net/2021/12/16/FgfhP7pQLk4r8KW.png" alt="eshop.png"></p>
+<p>开源地址：<a target="_blank" rel="noopener" href="https://github.com/masalabs/MASA.EShop">https://github.com/masalabs/MASA.EShop</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>说到底没有完美的技术，在你权衡利弊之后在正确的场景使用它就是最合适的。</p>
+<p>是春天还是寒冬也不重要，重要的是当下这一刻，它是否解决了你的痛点。</p>
+<p>最后，一个小小的广告</p>
+<p><strong>MASA Blazor 即将发布，敬请期待</strong>，如果你对我们的组件库感兴趣，无论是代码贡献、使用、提 Issue，欢迎联系我们</p>
+<p><img src="https://i.loli.net/2021/11/19/NPsOdZuGfBep3DY.png" alt="16373211753064.png"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor">https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/aspnet/core/blazor/state-management?view=aspnetcore-6.0&amp;pivots=server#persist-state-across-circuits">https://docs.microsoft.com/zh-cn/aspnet/core/blazor/state-management?view=aspnetcore-6.0&amp;pivots=server#persist-state-across-circuits</a></li>
+<li><a target="_blank" rel="noopener" href="https://sec.ch9.ms/ch9/daba/468d5211-982b-4c86-8b51-e1c8824edaba/dotNETConfNewBlazorWebAssembly_high.mp4">https://sec.ch9.ms/ch9/daba/468d5211-982b-4c86-8b51-e1c8824edaba/dotNETConfNewBlazorWebAssembly_high.mp4</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/WebAssembly">https://developer.mozilla.org/zh-CN/docs/WebAssembly</a></li>
+<li><a target="_blank" rel="noopener" href="https://ssr.vuejs.org/zh/">https://ssr.vuejs.org/zh/</a></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Blazor是春天还是寒风里的挣扎</p><p><a href="https://blogs.masastack.com/2021/10/25/masa/framework/masa-blazor/0/">https://blogs.masastack.com/2021/10/25/masa/framework/masa-blazor/0/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>MASA</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-10-25</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-05-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Blazor/">Blazor</a><a class="link-muted mr-2" rel="tag" href="/tags/MASA-Blazor/">MASA Blazor#</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/10/25/masa/activities/NetConfChina/2021/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Blazor是春天还是寒风里的挣扎</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/10/25/tech-dapr-by-the-hand/0/"><span class="level-item">手把手教你学Dapr - 0. 目录</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/images/avatar.png" alt="MASA"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">MASA</p><p class="is-size-6 is-block">Make change easier.</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>杭州</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">80</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">22</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">38</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/masastack" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/masastack"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#官方解释-Blazor"><span class="level-left"><span class="level-item">1</span><span class="level-item">官方解释 Blazor</span></span></a></li><li><a class="level is-mobile" href="#Blazor-Vs-MVC"><span class="level-left"><span class="level-item">2</span><span class="level-item">Blazor Vs MVC</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#什么是-MVC"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">什么是 MVC</span></span></a></li><li><a class="level is-mobile" href="#什么是交互式-Web-UI"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">什么是交互式 Web UI</span></span></a></li><li><a class="level is-mobile" href="#Blazor-有什么优势"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">Blazor 有什么优势</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Blazor-Vs-现代前端-Angular、Vue-等"><span class="level-left"><span class="level-item">3</span><span class="level-item">Blazor Vs 现代前端(Angular、Vue 等)</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#调试"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">调试</span></span></a></li><li><a class="level is-mobile" href="#全家桶"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">全家桶</span></span></a></li><li><a class="level is-mobile" href="#组件库"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">组件库</span></span></a></li><li><a class="level is-mobile" href="#第三方库"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">第三方库</span></span></a></li><li><a class="level is-mobile" href="#包管理"><span class="level-left"><span class="level-item">3.5</span><span class="level-item">包管理</span></span></a></li><li><a class="level is-mobile" href="#性能"><span class="level-left"><span class="level-item">3.6</span><span class="level-item">性能</span></span></a></li><li><a class="level is-mobile" href="#完了吗"><span class="level-left"><span class="level-item">3.7</span><span class="level-item">完了吗</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Web-Assembly-Vs-Server（服务器端渲染）"><span class="level-left"><span class="level-item">4</span><span class="level-item">Web Assembly Vs Server（服务器端渲染）</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#为什么用-SSR"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">为什么用 SSR</span></span></a></li><li><a class="level is-mobile" href="#什么时候用-SSR"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">什么时候用 SSR</span></span></a></li><li><a class="level is-mobile" href="#服务器端渲染-vs-预渲染-SSR-vs-Prerendering"><span class="level-left"><span class="level-item">4.3</span><span class="level-item">服务器端渲染 vs 预渲染 (SSR vs Prerendering)</span></span></a></li><li><a class="level is-mobile" href="#Blazor-该选-Web-Assembly-还是-Server"><span class="level-left"><span class="level-item">4.4</span><span class="level-item">Blazor 该选 Web Assembly 还是 Server</span></span></a></li></ul></li><li><a class="level is-mobile" href="#我们在做什么"><span class="level-left"><span class="level-item">5</span><span class="level-item">我们在做什么</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#开源的组件库"><span class="level-left"><span class="level-item">5.1</span><span class="level-item">开源的组件库</span></span></a></li><li><a class="level is-mobile" href="#MASA-Blazor"><span class="level-left"><span class="level-item">5.2</span><span class="level-item">MASA Blazor</span></span></a></li><li><a class="level is-mobile" href="#MASA-Blazor-Pro"><span class="level-left"><span class="level-item">5.3</span><span class="level-item">MASA Blazor Pro</span></span></a></li><li><a class="level is-mobile" href="#MASA-EShop"><span class="level-left"><span class="level-item">5.4</span><span class="level-item">MASA EShop</span></span></a></li></ul></li><li><a class="level is-mobile" href="#总结"><span class="level-left"><span class="level-item">6</span><span class="level-item">总结</span></span></a></li><li><a class="level is-mobile" href="#参考"><span class="level-left"><span class="level-item">7</span><span class="level-item">参考</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://github.com/masalabs/MASA.EShop" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MASA.EShop</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://github.com/BlazorComponent/MASA.Blazor" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MASA.Blazor</span></span><span class="level-right"><span class="level-item tag">github.com</span></span></a></li><li><a class="level is-mobile" href="https://www.cnblogs.com/doddgu/tag/Dapr" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">doddgu&#039;blog</span></span><span class="level-right"><span class="level-item tag">www.cnblogs.com</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/NET/"><span class="level-start"><span class="level-item">.NET</span></span><span class="level-end"><span class="level-item tag">45</span></span></a><ul><li><a class="level is-mobile" href="/categories/NET/Blazor/"><span class="level-start"><span class="level-item">Blazor</span></span><span class="level-end"><span class="level-item tag">8</span></span></a><ul><li><a class="level is-mobile" href="/categories/NET/Blazor/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/NET/C/"><span class="level-start"><span class="level-item">C#</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Crank/"><span class="level-start"><span class="level-item">Crank</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Framework/"><span class="level-start"><span class="level-item">Framework</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/MASA-Auth/"><span class="level-start"><span class="level-item">MASA Auth</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/MASA-Framework/"><span class="level-start"><span class="level-item">MASA Framework</span></span><span class="level-end"><span class="level-item tag">21</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Redis/"><span class="level-start"><span class="level-item">Redis</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/NET/Template/"><span class="level-start"><span class="level-item">Template</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/Dapr/"><span class="level-start"><span class="level-item">Dapr</span></span><span class="level-end"><span class="level-item tag">10</span></span></a></li><li><a class="level is-mobile" href="/categories/K8S/"><span class="level-start"><span class="level-item">K8S</span></span><span class="level-end"><span class="level-item tag">1</span></span></a><ul><li><a class="level is-mobile" href="/categories/K8S/Helm/"><span class="level-start"><span class="level-item">Helm</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/MASA/"><span class="level-start"><span class="level-item">MASA</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">4</span></span></a><ul><li><a class="level is-mobile" href="/categories/MASA-Blazor/MAUI/"><span class="level-start"><span class="level-item">MAUI</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/MASA-IoT/"><span class="level-start"><span class="level-item">MASA IoT</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/MASA-Stack/"><span class="level-start"><span class="level-item">MASA Stack</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/MAUI/"><span class="level-start"><span class="level-item">MAUI</span></span><span class="level-end"><span class="level-item tag">9</span></span></a><ul><li><a class="level is-mobile" href="/categories/MAUI/MASA-Blazor/"><span class="level-start"><span class="level-item">MASA Blazor</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li></ul></li><li><a class="level is-mobile" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/"><span class="level-start"><span class="level-item">社区例会</span></span><span class="level-end"><span class="level-item tag">2</span></span></a><ul><li><a class="level is-mobile" href="/categories/%E7%A4%BE%E5%8C%BA%E4%BE%8B%E4%BC%9A/MASA-Stack/"><span class="level-start"><span class="level-item">MASA Stack</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><figure class="media-left"><a class="image" href="/2023/05/10/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（三）管理设备的连接状态"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-05-10T15:30:00.000Z">2023-05-10</time></p><p class="title"><a href="/2023/05/10/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%89%EF%BC%89%E7%AE%A1%E7%90%86%E8%AE%BE%E5%A4%87%E7%9A%84%E8%BF%9E%E6%8E%A5%E7%8A%B6%E6%80%81/">使用MASA全家桶从零开始搭建IoT平台（三）管理设备的连接状态</a></p><p class="categories"><a href="/categories/MASA-IoT/">MASA IoT</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/05/05/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（二）设备注册"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-05-05T15:32:00.000Z">2023-05-05</time></p><p class="title"><a href="/2023/05/05/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%BA%8C%EF%BC%89%E8%AE%BE%E5%A4%87%E6%B3%A8%E5%86%8C/">使用MASA全家桶从零开始搭建IoT平台（二）设备注册</a></p><p class="categories"><a href="/categories/MASA/">MASA</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/04/21/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/"><img src="https://cdn.masastack.com/images/MASA%20IoT.png" alt="使用MASA全家桶从零开始搭建IoT平台（一）环境准备"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-04-21T15:30:00.000Z">2023-04-21</time></p><p class="title"><a href="/2023/04/21/MASA%20IoT/%E4%BD%BF%E7%94%A8MASA%E5%85%A8%E5%AE%B6%E6%A1%B6%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BAIoT%E5%B9%B3%E5%8F%B0%EF%BC%88%E4%B8%80%EF%BC%89%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">使用MASA全家桶从零开始搭建IoT平台（一）环境准备</a></p><p class="categories"><a href="/categories/MASA/">MASA</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/03/13/MASA%20Blazor/Blazor%E5%9C%A8IoT%E9%A2%86%E5%9F%9F%E7%9A%84%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5%20@.NET%E5%BC%80%E5%8F%91%E8%80%85%E6%97%A5/"><img src="https://cdn.masastack.com/images/blogs/blazor%20in%20iot3.13.jpg" alt="Blazor在IoT领域的前端实践 @.NET开发者日"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-03-13T14:35:00.000Z">2023-03-13</time></p><p class="title"><a href="/2023/03/13/MASA%20Blazor/Blazor%E5%9C%A8IoT%E9%A2%86%E5%9F%9F%E7%9A%84%E5%89%8D%E7%AB%AF%E5%AE%9E%E8%B7%B5%20@.NET%E5%BC%80%E5%8F%91%E8%80%85%E6%97%A5/">Blazor在IoT领域的前端实践 @.NET开发者日</a></p><p class="categories"><a href="/categories/MASA-Blazor/">MASA Blazor</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2023/03/08/MASA%20Blazor/MASA%20MAUI%20Plugin%20%EF%BC%88%E5%8D%81%EF%BC%89iOS%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%EF%BC%88%E5%8E%9F%E7%94%9FAPNS%E6%96%B9%E5%BC%8F%EF%BC%89/"><img src="https://cdn.masastack.com/images/blogs/masa-blazor-love-maui.jpg" alt="MASA MAUI Plugin （十）iOS消息推送（原生APNS方式）"></a></figure><div class="media-content"><p class="date"><time dateTime="2023-03-08T13:35:00.000Z">2023-03-08</time></p><p class="title"><a href="/2023/03/08/MASA%20Blazor/MASA%20MAUI%20Plugin%20%EF%BC%88%E5%8D%81%EF%BC%89iOS%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81%EF%BC%88%E5%8E%9F%E7%94%9FAPNS%E6%96%B9%E5%BC%8F%EF%BC%89/">MASA MAUI Plugin （十）iOS消息推送（原生APNS方式）</a></p><p class="categories"><a href="/categories/MAUI/">MAUI</a> / <a href="/categories/MAUI/MASA-Blazor/">MASA Blazor</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/05/"><span class="level-start"><span class="level-item">五月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/04/"><span class="level-start"><span class="level-item">四月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/03/"><span class="level-start"><span class="level-item">三月 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/11/"><span class="level-start"><span class="level-item">十一月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/10/"><span class="level-start"><span class="level-item">十月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/09/"><span class="level-start"><span class="level-item">九月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/08/"><span class="level-start"><span class="level-item">八月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/07/"><span class="level-start"><span class="level-item">七月 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/05/"><span class="level-start"><span class="level-item">五月 2022</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/04/"><span class="level-start"><span class="level-item">四月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/03/"><span class="level-start"><span class="level-item">三月 2022</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/02/"><span class="level-start"><span class="level-item">二月 2022</span></span><span class="level-end"><span class="level-item tag">11</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/12/"><span class="level-start"><span class="level-item">十二月 2021</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/11/"><span class="level-start"><span class="level-item">十一月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/10/"><span class="level-start"><span class="level-item">十月 2021</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/NET/"><span class="tag">.NET</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Blazor/"><span class="tag">Blazor</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="/tags/C-8-0/"><span class="tag">C#8.0</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CQRS/"><span class="tag">CQRS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Caching/"><span class="tag">Caching</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Caller/"><span class="tag">Caller</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Configuration/"><span class="tag">Configuration</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Crank/"><span class="tag">Crank</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DDD/"><span class="tag">DDD</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/DI/"><span class="tag">DI</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Distributed-lock/"><span class="tag">Distributed lock</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/EFCore/"><span class="tag">EFCore</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/EventBus/"><span class="tag">EventBus</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Framework/"><span class="tag">Framework</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Helm/"><span class="tag">Helm</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/HttpClient/"><span class="tag">HttpClient</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/K8S/"><span class="tag">K8S</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Auth/"><span class="tag">MASA Auth</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Auth-Design/"><span class="tag">MASA Auth Design</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Blazor/"><span class="tag">MASA Blazor</span><span class="tag">23</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Blazor/"><span class="tag">MASA Blazor#</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Framework/"><span class="tag">MASA Framework</span><span class="tag">28</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Framework-Design/"><span class="tag">MASA Framework Design</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-IoT/"><span class="tag">MASA IoT</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MASA-Stack/"><span class="tag">MASA Stack</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MAUI/"><span class="tag">MAUI</span><span class="tag">13</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Mapster/"><span class="tag">Mapster</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Minimal-Api/"><span class="tag">Minimal Api</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MinimalAPIs/"><span class="tag">MinimalAPIs</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/OM/"><span class="tag">OM</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redis/"><span class="tag">Redis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/SnowFlake/"><span class="tag">SnowFlake</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Storage/"><span class="tag">Storage</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Template/"><span class="tag">Template</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Test/"><span class="tag">Test</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI/"><span class="tag">UI</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/dapr/"><span class="tag">dapr</span><span class="tag">12</span></a></div><div class="control"><a class="tags has-addons" href="/tags/i18n/"><span class="tag">i18n</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">MASA Blogs</a><p class="is-size-7"><span>&copy; 2023 MASA</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/masastack"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
